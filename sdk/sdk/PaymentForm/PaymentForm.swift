@@ -38,7 +38,7 @@ public class PaymentForm: BaseViewController {
         }
         configuration.paymentUIDelegate.paymentFormWillDisplay()
         
-        if PKPaymentAuthorizationViewController.canMakePayments() {
+        if PKPaymentAuthorizationViewController.canMakePayments() && !configuration.disableApplePay {
             let controller = PaymentOptionsForm.present(with: configuration, from: from, completion: completion) as! PaymentOptionsForm
             controller.onCardOptionSelected = {
                 self.showCardForm(with: configuration, from: from, completion: nil)
