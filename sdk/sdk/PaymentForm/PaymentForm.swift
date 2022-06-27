@@ -38,7 +38,7 @@ public class PaymentForm: BaseViewController {
         }
         configuration.paymentUIDelegate.paymentFormWillDisplay()
         
-        if PKPaymentAuthorizationViewController.canMakePayments() && !configuration.disableApplePay {
+        if PKPaymentAuthorizationViewController.canMakePayments() {
             let controller = PaymentOptionsForm.present(with: configuration, from: from, completion: completion) as! PaymentOptionsForm
             controller.onCardOptionSelected = {
                 self.showCardForm(with: configuration, from: from, completion: nil)
@@ -50,7 +50,7 @@ public class PaymentForm: BaseViewController {
     }
     
     @discardableResult
-    private class func showCardForm(with configuration: PaymentConfiguration, from: UIViewController, completion: (() -> ())?) -> PaymentForm {
+    public class func showCardForm(with configuration: PaymentConfiguration, from: UIViewController, completion: (() -> ())?) -> PaymentForm {
         let controller = PaymentCardForm.present(with: configuration, from: from, completion: completion) as! PaymentCardForm
         controller.onPayClicked = { cryptogram, email in
             PaymentProcessForm.present(with: configuration, cryptogram: cryptogram, email: email, from: from, completion: nil)
